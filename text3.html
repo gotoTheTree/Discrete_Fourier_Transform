@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中奖名单</title>
+    <style>
+    .but1{
+        width: 100px;
+        height: 50px;
+    }
+    #log{
+        font-size: 30px;
+        width: 100px;
+        height: 50px;
+        position: relative;
+        left: 100px;
+    }
+    .name_out{
+        font-size: 30px;
+    }
+    .name_big_out{
+        font-size: 50px;
+    }
+    .end_big_out{
+        font-family:'宋体';
+        font-size: 50px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="top">
+        <span><button class="but1" onclick="but()">开抽</button></span>
+        <span id="log"></span>
+    </div>
+    
+    <h1>恭喜您中奖了</h1>
+    <script>
+        let to_list = ['优育模型','火星探索小分队','生活中的小黑'];
+        let name_list = ['海陆空三栖f35b','猫-小-弟','微醺呢','Mcarf','kingzr00','爱做手工的手残党','FOCUS_electrics','Liberty-FPV','HzbigFPV','无语的兴兴','玩可以不吃酒的mc玩家','欢迎来到比惨大会','RC_小周','-啊燃_','雪上空行处_何常在','左佐_bing','看有一只会飞的烤乳猪','鹧鸪菜233','Sharky87','哈哈三横王1','_-星愿-_','北风与龙BeiLong','小冯电子','常常就谬','Xrc45','墨色浸染了心','--River--','anyhow18','Sabkuai不贵','浪白与白','Layla_and_Harvey','沐哥沐沐沐'];
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        let output=[];
+        function but(){
+            let t=300;
+            let old_t = performance.now();
+            let load_text = document.getElementById('log');
+            let k = 100;
+            load_text.innerText = '';
+            requestAnimationFrame(ainmt_load_delay);
+            function ainmt_load_delay(){
+                if((performance.now()-old_t)>=k){
+                    old_t = performance.now();
+                    let load_text = document.getElementById('log');
+                    if(load_text.innerText == '')load_text.innerText = '.';
+                    else if(load_text.innerText == '.')load_text.innerText = '..';
+                    else if(load_text.innerText == '..')load_text.innerText = '...';
+                    else if(load_text.innerText == '...')load_text.innerText = '....';
+                    else if(load_text.innerText == '....')load_text.innerText = '.....';
+                    else if(load_text.innerText == '.....')load_text.innerText = '';
+                    t-=k;
+                }
+                if(t>0)
+                {
+                    requestAnimationFrame(ainmt_load_delay);
+                }else{
+                    console.log('Output');
+                    
+                    if(output.length>=to_list.length&&output.length<9){
+                        let i = randomInt(0,name_list.length-1);
+                        if(output.includes(name_list[i])!=true){
+                            output.push(name_list[i]);
+                            let data = document.createElement('div');
+                            data.classList.add('name_out');
+                            data.innerText = name_list[i];
+                            document.body.appendChild(data);
+                        }
+                        if(output.length==9){
+                            let data = document.createElement('h1');
+                            data.classList.add('top2');
+                            data.innerText = "以下是大奖获得者";
+                            document.body.appendChild(data);
+                        }
+                    }else if(output.length<to_list.length){
+                        let data = document.createElement('div');
+                        data.classList.add('name_out');
+                        data.innerText = to_list[output.length];
+                        output.push(to_list[output.length]);
+                        document.body.appendChild(data);
+                    }else{
+                        if(output.length==9){
+                            let data = document.createElement('h1');
+                            data.classList.add('top2');
+                            data.innerText = "以下是大奖获得者";
+                            output.push('以下是大奖获得者');
+                            //document.body.appendChild(data);
+                        }else{
+                            let i = randomInt(0,name_list.length-1);
+                            if(output.includes(name_list[i])!=true&&output.length<11){
+                                output.push(name_list[i]);
+                                let data = document.createElement('div');
+                                data.classList.add('name_big_out');
+                                data.innerText = name_list[i];
+                                document.body.appendChild(data);
+                                let end = document.createElement('div');
+                                end.classList.add('end_big_out');
+                                end.innerText = 'you are king';
+                                document.body.appendChild(end);
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        
+        
+    </script>
+</body>
+</html>
