@@ -1,3 +1,4 @@
 # Discrete_Fourier_Transform
 临时库
 主要针对离散傅里叶变换的研究
+直接下载main文件夹通过浏览器运行html即可
